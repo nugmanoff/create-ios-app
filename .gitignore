@@ -1,0 +1,5 @@
+**/*.DS_Store
+Derived/
+Tuist/Dependencies/
+*.xcworkspace
+*.xcodeproj
