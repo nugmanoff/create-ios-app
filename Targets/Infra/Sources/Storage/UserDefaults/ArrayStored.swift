@@ -26,3 +26,16 @@ public struct StoredArray<T: Codable> {
         }
     }
 }
+
+/*
+ 
+ App
+ *
+ Infrastructure * UI
+ - Storage
+ - Networking
+ - Localization
+ *
+ Resources * Convenience
+ 
+ */

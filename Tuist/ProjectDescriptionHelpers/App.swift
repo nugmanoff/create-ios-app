@@ -13,56 +13,38 @@ extension Project {
             }
         )
         
-        let schemes = TargetScheme.allCases.map { $0.getScheme(for: name) }
+        let _ = TargetScheme.allCases.map { $0.getScheme(for: name) }
         
         return Project(
             name: name,
             organizationName: organizationName,
 //            settings: settings,
             targets: [
-                makeMainTarget(name: name, displayName: displayName, bundleId: bundleId, settings: settings),
-                Target(name: "resources",
-                       platform: .iOS,
-                       product: .framework,
-                       bundleId: "com.nugmanoff.resources.module",
-                       deploymentTarget: .iOS(targetVersion: "13.0", devices: [.iphone]),
-                       infoPlist: .default,
-                       sources: "Targets/Assets/Sources/**",
-                       resources: "Targets/Assets/Resources/**"
-                       )
+                main(name: name, displayName: displayName, bundleId: bundleId, settings: settings),
+                module(name: "UI", dependencies: [.target(name: "Resources"), .target(name: "Convenience")]),
+                module(name: "Infra", noResources: false, dependencies: [.external(name: "Alamofire"), .external(name: "Pulse")]),
+                module(name: "Resources", noResources: false),
+                module(name: "Convenience")
             ]
 //            schemes: schemes
         )
     }
     
-    public static func module() -> Project {
-        let bundleId = "com.sample.module"
-        let fonts: [String: InfoPlist.Value] = [
-            "UIAppFonts":
-                [
-                    "Inter-Medium",
-                    "Inter-Regular",
-                ]
-            
-        ]
-        return Project(
-            name: "resources",
-//            settings: projectSettings,
-            targets: [
-                Target(name: "resources",
-                       platform: .iOS,
-                       product: .framework,
-                       bundleId: bundleId,
-                       deploymentTarget: .iOS(targetVersion: "13.0", devices: [.iphone]),
-                       infoPlist: .extendingDefault(with: fonts),
-                       sources: ["Targets/Assets/Sources/**"],
-                       resources: ["Targets/Assets/Resources/**"]
-                       )
-                ]
-            )
+    public static func module(name: String, noResources: Bool = true, dependencies: [TargetDependency] = []) -> Target {
+        Target(
+            name: name,
+            platform: .iOS,
+            product: .framework,
+            bundleId: "com.\(name).module",
+            deploymentTarget: .iOS(targetVersion: "13.0", devices: [.iphone]),
+            infoPlist: .default,
+            sources: ["Targets/\(name)/Sources/**"],
+            resources: noResources ? [] : ["Targets/\(name)/Resources/**"],
+            dependencies: dependencies
+        )
     }
     
-    private static func makeMainTarget(name: String, displayName: String, bundleId: String, settings: Settings) -> Target {
+    private static func main(name: String, displayName: String, bundleId: String, settings: Settings) -> Target {
         let infoPlist: [String: InfoPlist.Value] = [
 //            "CFBundleDisplayName": .string(displayName),
 //            "CFBundleShortVersionString": .string(Versions.marketingVersion),
@@ -82,31 +64,16 @@ extension Project {
             infoPlist: .extendingDefault(with: infoPlist),
             sources: ["Targets/App/Sources/**"],
             resources: ["Targets/App/Resources/**"],
-            dependencies: [.target(name: "resources"), .external(name: "Inject")]
-//            .project(target: dependencyName, path: .relativeToManifest("../\(dependencyName)"))
-//            settings: settings
-//            settings: Settings.settings(
-//                base: ["MARKETING_VERSION": "\(Versions.marketingVersion)",
-////                       "CODE_SIGN_STYLE": "Manual",
-////                       "DEVELOPMENT_TEAM": "2T3TCFDCA4",
-//                       "OTHER_LDFLAGS": "-ObjC"],
-//                configurations: [
-//                    .debug(
-//                        name: "Debug",
-//                        settings: [:
-////                            "PROVISIONING_PROFILE_SPECIFIER": "match Development com.chesslegends.ai",
-////                            "CODE_SIGN_IDENTITY": "iPhone Developer"
-//                        ]
-//                    ),
-//                    .release(
-//                        name: "Release",
-//                        settings: [:
-////                            "PROVISIONING_PROFILE_SPECIFIER": "match AppStore com.chesslegends.ai",
-////                            "CODE_SIGN_IDENTITY": "iPhone Distribution"
-//                        ]
-//                    )
-//                ]
-//            )
+            dependencies: [
+                .target(name: "UI"),
+                .target(name: "Infra"),
+                .target(name: "Resources"),
+                .target(name: "Convenience"),
+                .external(name: "Inject"),
+                .external(name: "Nivelir"),
+                .external(name: "Pulse"),
+                .external(name: "PulseUI")
+            ]
         )
     }
 }
