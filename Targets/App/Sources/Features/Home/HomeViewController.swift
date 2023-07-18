@@ -12,15 +12,14 @@ final class HomeViewController: UIViewController, ScreenRefreshableContainer {
     
     private let viewModel = HomeViewModel()
     
-    private let navigator: ScreenNavigator
     private let store = HomeStore()
     
     @Injected(\.screens) var screens
+    @Injected(\.navigator) var navigator
     
     private var bag = Bag()
 
-    init(navigator: ScreenNavigator, onOpenMenu: @escaping Callback) {
-        self.navigator = navigator
+    init(onOpenMenu: @escaping Callback) {
         self.onOpenMenu = onOpenMenu
         super.init(nibName: nil, bundle: nil)
     }

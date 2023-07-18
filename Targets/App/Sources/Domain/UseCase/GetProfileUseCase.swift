@@ -1,11 +1,12 @@
-import Foundation
-import Convenience
+import Factory
 
 protocol GetProfileUseCaseProtocol {
     func execute() async -> UserProfile
 }
 
 final class GetProfileUseCase: GetProfileUseCaseProtocol {
+    @Injected(\.userRepository) var userRepository
+    
     func execute() async -> UserProfile {
         let profile = await userRepository.fetchUserProfile()
         return profile

@@ -25,14 +25,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         container.navigator.register {
             ScreenNavigator(window: window)
         }
-
-        container
-            .navigator()
-            .navigate(
-                to: container
-                    .routes()
-                    .showHomeRoute()
-            )
+        
+        let appCoordinator = AppCoordinator()
+        appCoordinator.start()
+//
+//        container
+//            .navigator()
+//            .navigate(
+//                to: container
+//                    .routes()
+//                    .showAuthRoute()
+//            )
     }
 }
 

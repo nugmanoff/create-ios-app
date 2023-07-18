@@ -6,7 +6,6 @@ struct UserProfile {
     let name: String
 }
 
-
 final class UserRepository {
     private var inMemoryUserProfile = UserProfile(name: "Default")
     
@@ -20,5 +19,3 @@ final class UserRepository {
         return inMemoryUserProfile
     }
 }
-
-let userRepository = UserRepository()

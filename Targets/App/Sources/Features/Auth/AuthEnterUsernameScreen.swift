@@ -1,8 +1,8 @@
 import UIKit
 import Nivelir
 
-struct EditProfileScreen: Screen {
+struct AuthEnterUsernameScreen: Screen {
     func build(navigator: ScreenNavigator) -> UIViewController {
-        EditProfileViewController()
+        AuthEnterUsernameViewController()
     }
 }

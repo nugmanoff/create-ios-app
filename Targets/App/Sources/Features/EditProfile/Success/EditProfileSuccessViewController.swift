@@ -1,14 +1,14 @@
 import SwiftUI
 import Convenience
 import Nivelir
+import Factory
 
 final class EditProfileSuccessViewController: UIViewController, Screen {
     private lazy var rootView: BridgedView = EditProfileSuccessView().bridge()
     
-    private let navigator: ScreenNavigator
+    @Injected(\.navigator) var navigator
     
-    init(navigator: ScreenNavigator) {
-        self.navigator = navigator
+    init() {
         super.init(nibName: nil, bundle: nil)
     }
     

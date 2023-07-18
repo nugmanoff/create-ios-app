@@ -2,6 +2,7 @@ import SwiftUI
 import Convenience
 import SideMenu
 import Nivelir
+import Factory
 
 struct Stock {
     let symbol: String
@@ -18,13 +19,12 @@ final class StocksListViewModel {
 }
 
 final class StocksListViewController: UIViewController {
-    private let navigator: ScreenNavigator
-    
     private lazy var tableView = UITableView()
     private lazy var viewModel = StocksListViewModel()
     
-    init(navigator: ScreenNavigator) {
-        self.navigator = navigator
+    @Injected(\.navigator) var navigator
+    
+    init() {
         super.init(nibName: nil, bundle: nil)
     }
     

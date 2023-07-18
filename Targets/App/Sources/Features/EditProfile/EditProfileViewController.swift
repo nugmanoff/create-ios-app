@@ -2,8 +2,8 @@ import SwiftUI
 import Convenience
 import Nivelir
 import Combine
+import Factory
 import UI
-
 
 final class EditProfileViewController: UIViewController, UITextFieldDelegate {
     private lazy var textField: UITextField = {
@@ -18,15 +18,16 @@ final class EditProfileViewController: UIViewController, UITextFieldDelegate {
         title: "Save",
         onDidTap: onSaveDidTap
     )
+    
     private var updateProfileUseCase = UpdateProfileNameUseCase()
     
     private var bag = Bag()
     
-    private let navigator: ScreenNavigator
+    @Injected(\.navigator) var navigator
     private let store = EditProfileStore()
     
-    init(navigator: ScreenNavigator) {
-        self.navigator = navigator
+    
+    init() {
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -109,7 +110,7 @@ final class EditProfileViewController: UIViewController, UITextFieldDelegate {
     }
     
     private func showSuccess() {
-        let screen = EditProfileSuccessViewController(navigator: navigator)
+        let screen = EditProfileSuccessViewController()
         navigator.navigate(from: self) { route in
             route.stack.push(screen)
         }

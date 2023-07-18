@@ -2,6 +2,10 @@ import Foundation
 import Nivelir
 
 struct AppScreens {
+    func enterUsernameScreen() -> AnyModalScreen {
+        AuthEnterUsernameScreen().eraseToAnyScreen()
+    }
+    
     func editProfileScreen() -> AnyModalScreen {
         EditProfileScreen().eraseToAnyScreen()
     }
