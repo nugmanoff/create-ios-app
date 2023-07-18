@@ -3,9 +3,26 @@ import Convenience
 import SideMenu
 import Nivelir
 
+struct Stock {
+    let symbol: String
+    let value: String
+}
+
+final class StocksListViewModel {
+    var stocks: [Stock] = [
+        .init(symbol: "AAPL", value: "124.56$"),
+        .init(symbol: "NFLX", value: "200.12$"),
+        .init(symbol: "DISN", value: "72.11$"),
+        .init(symbol: "GOOG", value: "56.84$"),
+    ]
+}
+
 final class StocksListViewController: UIViewController {
     private let navigator: ScreenNavigator
     private let screens: AppScreens
+    
+    private lazy var tableView = UITableView()
+    private lazy var viewModel = StocksListViewModel()
     
     init(navigator: ScreenNavigator, screens: AppScreens) {
         self.navigator = navigator
@@ -20,10 +37,20 @@ final class StocksListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        view.backgroundColor = .white
+        configureNavigationBar()
     }
     
     private func configureUI() {
+        view.backgroundColor = .white
+        view.addSubviewStickingToEdges(tableView)
+        tableView.apply {
+            $0.dataSource = self
+            $0.showsVerticalScrollIndicator = false
+            $0.register(bridgingCellClass: StocksListItemCell.self)
+        }
+    }
+    
+    private func configureNavigationBar() {
         navigationItem.title = "Stocks"
         stack?.navigationBar.prefersLargeTitles = true
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: .init(systemName: "x.circle"), landscapeImagePhone: nil, style: .plain, target: self, action: #selector(onCloseDidTap))
@@ -36,3 +63,19 @@ final class StocksListViewController: UIViewController {
     }
 }
 
+extension StocksListViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        viewModel.stocks.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let stock = viewModel.stocks[indexPath.row]
+        let cell: StocksListItemCell = tableView.dequeueReusableBridgingCell(for: indexPath)
+        let view = StocksListItemView(stock: stock)
+//        let view = VideoView(viewModel: viewModel) { [weak self, weak viewModel] in
+//            self.store.actions.send(.didTap(viewModel))
+//        }
+        cell.set(rootView: view, parentViewController: self)
+        return cell
+    }
+}

@@ -13,10 +13,7 @@ struct MenuView: View {
                     Text("Список акций")
                 }
                 Button(action: onEditProfileDidTap) {
-                    Text("Ред. профиль")
-                }
-                Button(action: onEditProfileDidTap) {
-                    Text("Обновить профиль")
+                    Text("Редактировать профиль")
                 }
             }
             .font(.headline)
