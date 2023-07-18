@@ -2,8 +2,9 @@ import SwiftUI
 import Convenience
 import SideMenu
 import Nivelir
+import Factory
 
-final class HomeViewController: UIViewController, ScreenRefreshableContainer, ScreenKeyedContainer {
+final class HomeViewController: UIViewController, ScreenRefreshableContainer {
     
     var onOpenMenu: Callback = {}
     
@@ -12,17 +13,14 @@ final class HomeViewController: UIViewController, ScreenRefreshableContainer, Sc
     private let viewModel = HomeViewModel()
     
     private let navigator: ScreenNavigator
-    private let screens: AppScreens
     private let store = HomeStore()
     
-    let screenKey: ScreenKey
+    @Injected(\.screens) var screens
     
     private var bag = Bag()
 
-    init(navigator: ScreenNavigator, screens: AppScreens, screenKey: ScreenKey, onOpenMenu: @escaping Callback) {
+    init(navigator: ScreenNavigator, onOpenMenu: @escaping Callback) {
         self.navigator = navigator
-        self.screens = screens
-        self.screenKey = screenKey
         self.onOpenMenu = onOpenMenu
         super.init(nibName: nil, bundle: nil)
     }

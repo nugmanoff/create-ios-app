@@ -72,6 +72,7 @@ extension Project {
                 .external(name: "Inject"),
                 .external(name: "Nivelir"),
                 .external(name: "SideMenu"),
+                .external(name: "Factory"),
                 .external(name: "Pulse"),
                 .external(name: "PulseUI")
             ]

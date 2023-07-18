@@ -19,14 +19,12 @@ final class StocksListViewModel {
 
 final class StocksListViewController: UIViewController {
     private let navigator: ScreenNavigator
-    private let screens: AppScreens
     
     private lazy var tableView = UITableView()
     private lazy var viewModel = StocksListViewModel()
     
-    init(navigator: ScreenNavigator, screens: AppScreens) {
+    init(navigator: ScreenNavigator) {
         self.navigator = navigator
-        self.screens = screens
         super.init(nibName: nil, bundle: nil)
     }
     

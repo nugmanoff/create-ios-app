@@ -22,13 +22,11 @@ final class EditProfileViewController: UIViewController, UITextFieldDelegate {
     
     private var bag = Bag()
     
-    private let screens: AppScreens
     private let navigator: ScreenNavigator
     private let store = EditProfileStore()
     
-    init(navigator: ScreenNavigator, screens: AppScreens) {
+    init(navigator: ScreenNavigator) {
         self.navigator = navigator
-        self.screens = screens
         super.init(nibName: nil, bundle: nil)
     }
     

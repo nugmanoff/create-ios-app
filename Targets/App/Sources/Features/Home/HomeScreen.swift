@@ -2,10 +2,8 @@ import UIKit
 import Nivelir
 
 struct HomeScreen: Screen {
-    let screens: AppScreens
-
     func build(navigator: ScreenNavigator) -> UIViewController {
-        let menuScreen = MenuScreen(screens: screens)
+        let menuScreen = MenuScreen()
         
         let presentMenuRoute = ScreenWindowRoute()
             .top(.container)
@@ -14,8 +12,6 @@ struct HomeScreen: Screen {
 
         let view = HomeViewController(
             navigator: navigator,
-            screens: screens,
-            screenKey: key,
             onOpenMenu: {
                 navigator.navigate(to: presentMenuRoute)
             }

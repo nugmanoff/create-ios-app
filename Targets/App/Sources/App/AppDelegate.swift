@@ -1,67 +1,41 @@
 @_exported import Inject
-import Resources
-import Infra
+import Convenience
 import UIKit
 import PulseUI
-import SideMenu
+import Nivelir
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
-    private var services: Services?
-    private var screens: AppScreens?
-    
     func application(
         _: UIApplication,
         didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]? = nil
     ) -> Bool {
-        setupWindow()
+        setupNavigation()
         return true
     }
     
-    private func setupWindow() {
+    private func setupNavigation() {
         let window = UIWindow(frame: UIScreen.main.bounds)
-        let services = Services(window: window)
-        let screens = AppScreens(services: services)
-
+        let container = AppContainer.shared
+        
         self.window = window
-        self.services = services
-        self.screens = screens
-
-        services
-            .screenNavigator()
-            .navigate(to: screens.showHomeRoute())
-    }
-}
-
-extension UIViewController {
-func topMostViewController() -> UIViewController {
-    if presentedViewController == nil {
-        return self
-    }
-    if let navigationViewController = presentedViewController as? UINavigationController {
-        if let visibleViewController = navigationViewController.visibleViewController {
-            return visibleViewController.topMostViewController()
-        } else {
-            return navigationViewController
+        
+        container.navigator.register {
+            ScreenNavigator(window: window)
         }
+
+        container
+            .navigator()
+            .navigate(
+                to: container
+                    .routes()
+                    .showHomeRoute()
+            )
     }
-    if let tabBarViewController = presentedViewController as? UITabBarController {
-        if let selectedViewController = tabBarViewController.selectedViewController {
-            return selectedViewController.topMostViewController()
-        }
-        return tabBarViewController.topMostViewController()
-    }
-    return presentedViewController!.topMostViewController()
-}
 }
 
-extension UIApplication {
-    func topMostViewController() -> UIViewController? {
-        UIApplication.shared.windows.filter(\.isKeyWindow).first?.rootViewController?.topMostViewController()
-    }
-}
 
 #if DEBUG
 extension UIWindow {
