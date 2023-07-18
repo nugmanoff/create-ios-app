@@ -26,7 +26,7 @@ open class Store<Event, Action> {
         }.store(in: &bag)
     }
     
-    public func handleActions(action: Action) {
+    open func handleActions(action: Action) {
         
     }
 }

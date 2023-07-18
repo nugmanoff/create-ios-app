@@ -1,5 +1,4 @@
 import Foundation
-import Infra
 
 public final class LanguageManager: NSObject {
     public static let shared = LanguageManager()

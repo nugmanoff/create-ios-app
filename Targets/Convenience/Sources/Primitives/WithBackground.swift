@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct WithBackground<Content: View>: View {
+public struct WithBackground<Content: View>: View {
     public var color: Color
     @ViewBuilder public var content: () -> Content
     

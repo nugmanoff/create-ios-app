@@ -13,7 +13,7 @@ extension Project {
             }
         )
         
-        let _ = TargetScheme.allCases.map { $0.getScheme(for: name) }
+//        let schemes = TargetScheme.allCases.map { $0.getScheme(for: name) }
         
         return Project(
             name: name,
@@ -71,6 +71,7 @@ extension Project {
                 .target(name: "Convenience"),
                 .external(name: "Inject"),
                 .external(name: "Nivelir"),
+                .external(name: "SideMenu"),
                 .external(name: "Pulse"),
                 .external(name: "PulseUI")
             ]

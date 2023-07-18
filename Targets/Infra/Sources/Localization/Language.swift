@@ -1,5 +1,4 @@
 import Foundation
-import Infra
 
 public enum Language: String, Identifiable, UserDefaultsSerializable, CaseIterable {
     case english
