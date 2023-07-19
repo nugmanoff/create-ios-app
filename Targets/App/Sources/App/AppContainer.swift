@@ -15,8 +15,11 @@ extension AppContainer: AutoRegistering {
 }
 
 extension AppContainer {
+   
     var navigator: Dependency<ScreenNavigator> {
         self {
+            /// Actual `ScreenNavigator` is instantiated and registered in `AppDelegate`
+            /// This is made only to avoid `ScreenNavigator?` optional type
             ScreenNavigator(window: .init())
         }
     }

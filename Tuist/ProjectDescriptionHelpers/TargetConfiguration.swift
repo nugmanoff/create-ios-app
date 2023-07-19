@@ -49,6 +49,7 @@ extension TargetConfiguration {
             "CODE_SIGN_STYLE": "Manual",
             "PROVISIONING_PROFILE_SPECIFIER": provisioningProfile(),
             "CODE_SIGN_IDENTITY": codeSignIdentity(),
+            "SWIFT_ACTIVE_COMPILATION_CONDITIONS": compilationCondition(),
         ]
     }
 
@@ -96,6 +97,19 @@ extension TargetConfiguration {
             return "\(App.bundleId).staging"
         case .debugProduction, .releaseProduction:
             return "\(App.bundleId)"
+        }
+    }
+    
+    private func compilationCondition() -> SettingValue {
+        switch self {
+        case .debugStaging:
+            return .array(["DEBUG", "STAGING"])
+        case .debugProduction:
+            return .array(["DEBUG", "PRODUCTION"])
+        case .releaseStaging:
+            return .array(["STAGING"])
+        case .releaseProduction:
+            return .array(["PRODUCTION"])
         }
     }
 }

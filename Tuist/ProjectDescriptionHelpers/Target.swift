@@ -15,7 +15,8 @@ extension Project {
         Project(
             name: App.targetName,
             organizationName: App.organizationName,
-            settings: Settings.settings(configurations: TargetConfiguration.allCases.map { $0.configuration() }),
+            settings: Settings.settings(configurations: TargetConfiguration.allCases.map { $0.configuration() },
+                                        defaultSettings: .recommended(excluding: ["SWIFT_ACTIVE_COMPILATION_CONDITIONS"])),
             targets: [
                 app(name: App.targetName, dependencies: [
                     .target(name: "UI"),
@@ -66,6 +67,7 @@ extension Project {
             sources: ["Targets/App/Sources/**"],
             resources: ["Targets/App/Resources/**"],
             dependencies: dependencies
+//            settings: .settings(defaultSettings: .recommended(excluding: ["SWIFT_ACTIVE_COMPILATION_CONDITIONS"]))
         )
     }
     

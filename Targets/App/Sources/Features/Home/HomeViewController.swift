@@ -18,6 +18,7 @@ final class HomeViewController: UIViewController, ScreenRefreshableContainer, Sc
     @Injected(\.screens) var screens
     @Injected(\.routes) var routes
     @Injected(\.navigator) var navigator
+    @Injected(\Env.current) var currentEnv
     
     private var bag = Bag()
 
@@ -36,6 +37,15 @@ final class HomeViewController: UIViewController, ScreenRefreshableContainer, Sc
         configureUI()
         configureNavigationBar()
         configureObservers()
+        
+        print("currentEnv: ", currentEnv.rawValue)
+        print("apiURL: ", Env.shared.apiUrl())
+        
+        /* Можно на лету менять Environment Переменные, не меняя весь Environment */
+        Env.shared.apiUrl.register { "some_random_url" }
+        
+        print("currentEnv: ", currentEnv.rawValue)
+        print("apiUrl: ",  Env.shared.apiUrl())
     }
     
     override func viewDidAppear(_ animated: Bool) {
