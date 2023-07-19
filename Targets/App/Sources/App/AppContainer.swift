@@ -31,6 +31,20 @@ extension AppContainer {
             UserRepository()
         }
     }
+    
+    var getProfileUseCase: Dependency<GetProfileUseCaseProtocol> {
+        self {
+            GetProfileUseCase()
+//            GetProfileUseCaseMock()
+        }
+    }
+    
+    var getUserFlowUseCase: Dependency<GetUserFlowUseCaseProtocol> {
+        self {
+//            GetUserFlowUseCase()
+            GetUserFlowUseCaseMock()
+        }
+    }
 }
 
 extension AppContainer: AutoRegistering {

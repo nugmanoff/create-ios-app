@@ -13,7 +13,7 @@ final class GetProfileUseCase: GetProfileUseCaseProtocol {
     }
 }
 
-final class GetMockProfileUseCase: GetProfileUseCaseProtocol {
+final class GetProfileUseCaseMock: GetProfileUseCaseProtocol {
     func execute() async -> UserProfile {
         UserProfile(name: "Mocked Name")
     }

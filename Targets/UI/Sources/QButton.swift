@@ -31,9 +31,9 @@ public struct QButton: View {
         Button(action: viewModel.onDidTap) {
             ZStack {
                 RoundedRectangle(cornerRadius: 10)
-                    .fill(Color.blue)
+                    .fill(Color.blue.opacity(viewModel.isEnabled ? 1 : 0.5))
                 if viewModel.isLoading {
-                    Text("Загружается...")
+                    QLoader(style: .medium, color: .white)
                 } else {
                     Text(viewModel.title)
                 }
@@ -41,6 +41,5 @@ public struct QButton: View {
             .foregroundColor(.white)
         }
         .disabled(!viewModel.isEnabled)
-        .opacity(viewModel.isEnabled ? 1 : 0.5)
     }
 }

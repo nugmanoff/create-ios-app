@@ -1,8 +1,10 @@
 import Foundation
 import Convenience
+import Factory
 
 enum HomeEvent {
     case profileNameLoaded(String)
+    case isLoading(Bool)
 }
 
 enum HomeAction {
@@ -10,15 +12,18 @@ enum HomeAction {
 }
 
 final class HomeStore: Store<HomeEvent, HomeAction> {
-    private var getProfileUseCase = GetProfileUseCase()
+    @Injected(\.getProfileUseCase) private var getProfileUseCase
     
     override func handleActions(action: HomeAction) {
         switch action {
         case .viewDidAppear:
             print("viewDidAppear Action Received")
+            
             Task {
+                sendEvent(.isLoading(true))
                 let profile = await getProfileUseCase.execute()
                 sendEvent(.profileNameLoaded(profile.name))
+                sendEvent(.isLoading(false))
             }
         }
     }

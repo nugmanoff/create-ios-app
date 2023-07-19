@@ -1,4 +1,5 @@
 import SwiftUI
+import UI
 import Convenience
 
 struct HomeView: View {
@@ -7,8 +8,12 @@ struct HomeView: View {
     var body: some View {
         WithBackground(color: .white) {
             VStack {
-                Text("Welcome, \(viewModel.profileName)")
-                    .font(.title)
+                if viewModel.isLoading {
+                    QLoader(style: .large, color: .gray)
+                } else {
+                    Text("Welcome, \(viewModel.profileName)")
+                        .font(.title)
+                }
                 Spacer()
             }
             .padding(.top, 60)

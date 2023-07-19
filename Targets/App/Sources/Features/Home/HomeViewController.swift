@@ -65,6 +65,8 @@ final class HomeViewController: UIViewController, ScreenRefreshableContainer, Sc
             switch event {
             case .profileNameLoaded(let profileName):
                 viewModel.profileName = profileName
+            case .isLoading(let isLoading):
+                viewModel.isLoading = isLoading
             }
         }
         .store(in: &bag)
