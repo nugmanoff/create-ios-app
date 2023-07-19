@@ -16,6 +16,7 @@ final class HomeViewController: UIViewController, ScreenRefreshableContainer, Sc
     let screenKey: ScreenKey
     
     @Injected(\.screens) var screens
+    @Injected(\.routes) var routes
     @Injected(\.navigator) var navigator
     
     private var bag = Bag()
@@ -39,13 +40,12 @@ final class HomeViewController: UIViewController, ScreenRefreshableContainer, Sc
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        print("homeDidAppear")
-//        store.sendAction(.viewDidAppear)
+        store.sendAction(.viewDidAppear)
     }
     
     func refresh(completion: @escaping () -> Void) {
-//        store.sendAction(.viewDidAppear)
-//        completion()
+        store.sendAction(.viewDidAppear)
+        completion()
     }
     
     private func configureUI() {

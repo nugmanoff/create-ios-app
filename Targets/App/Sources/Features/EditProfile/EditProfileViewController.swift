@@ -77,22 +77,21 @@ final class EditProfileViewController: UIViewController, UITextFieldDelegate {
             switch event {
             case .isLoading(let isLoading):
                 buttonViewModel.isLoading = isLoading
+                break
             case .isSaveButtonEnabled(let isSaveButtonEnabled):
                 buttonViewModel.isEnabled = isSaveButtonEnabled
-           case .showSuccess:
+                break
+            case .showSuccess:
                 let homeScreen = screens.homeScreen()
-                print("homeScreen.key", homeScreen.key)
                 navigator.navigate { route in
                     route
-                        .first(.container(key: homeScreen.key))
+                        .first(.stack)
+                        .stackRoot
+//                        .first(.container(key: homeScreen.key))
                         .refresh()
                 }
-//                navigator.navigate { route in
-//                    route
-//                        .first(.container(of: homeScreen))
-//                        .refresh()
-//                }
                 showSuccess()
+                break
             }
         }
         .store(in: &bag)

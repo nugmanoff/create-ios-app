@@ -1,5 +1,7 @@
 import SwiftUI
 import Convenience
+import Nivelir
+import Factory
 
 final class MenuViewController: UIViewController {
     var onEditProfileDidTap: Callback = {}
@@ -10,10 +12,12 @@ final class MenuViewController: UIViewController {
         onStocksListDidTap: onStocksListDidTap
     ).bridge()
     
+    @Injected(\.navigator) var navigator
+    
     init(onEditProfileDidTap: @escaping Callback, onStocksListDidTap: @escaping Callback) {
-        super.init(nibName: nil, bundle: nil)
         self.onEditProfileDidTap = onEditProfileDidTap
         self.onStocksListDidTap = onStocksListDidTap
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -27,7 +31,6 @@ final class MenuViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        print("menuDidAppear")
     }
     
     private func configureUI() {
