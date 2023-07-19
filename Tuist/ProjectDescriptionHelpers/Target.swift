@@ -7,17 +7,17 @@ enum App {
     static let deploymentTarget = "13.0"
     
     static let developmentTeamId = "8526SDA4V4"
-    static let mainTargetName = "App"
+    static let targetName = "App"
 }
 
 extension Project {
     public static func main() -> Project {
         Project(
-            name: App.mainTargetName,
+            name: App.targetName,
             organizationName: App.organizationName,
             settings: Settings.settings(configurations: TargetConfiguration.allCases.map { $0.configuration() }),
             targets: [
-                app(name: App.mainTargetName, dependencies: [
+                app(name: App.targetName, dependencies: [
                     .target(name: "UI"),
                     .target(name: "Infra"),
                     .target(name: "Resources"),
@@ -40,7 +40,7 @@ extension Project {
                 module(name: "Resources", noResources: false),
                 module(name: "Convenience")
             ],
-            schemes: TargetScheme.allCases.map { $0.getScheme(for: App.mainTargetName) },
+            schemes: TargetScheme.allCases.map { $0.getScheme(for: App.targetName) },
             fileHeaderTemplate: .string("")
         )
     }

@@ -41,7 +41,7 @@ extension TargetConfiguration {
 
     private func settings() -> [String: SettingValue] {
         [
-            "APP_BUNDLE_NAME": "\(App.mainTargetName)",
+            "APP_BUNDLE_NAME": "\(App.targetName)",
             "APP_DISPLAY_NAME": displayName(),
             "APP_BUNDLE_IDENTIFIER": "\(bundleIdentifier())",
             "PRODUCT_BUNDLE_IDENTIFIER": "\(bundleIdentifier())",
