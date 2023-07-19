@@ -16,7 +16,7 @@ struct MenuScreen: Screen {
             }
         )
         let menu = SideMenuNavigationController(rootViewController: view)
-        SideMenuManager.default.leftMenuNavigationController = menu
+//        SideMenuManager.default.leftMenuNavigationController = menu
         menu.presentationStyle = .menuSlideIn
         return menu
     }

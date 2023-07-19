@@ -24,8 +24,9 @@ final class EditProfileViewController: UIViewController, UITextFieldDelegate {
     private var bag = Bag()
     
     @Injected(\.navigator) var navigator
-    private let store = EditProfileStore()
+    @Injected(\.screens) var screens
     
+    private let store = EditProfileStore()
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -78,8 +79,14 @@ final class EditProfileViewController: UIViewController, UITextFieldDelegate {
                 buttonViewModel.isLoading = isLoading
             case .isSaveButtonEnabled(let isSaveButtonEnabled):
                 buttonViewModel.isEnabled = isSaveButtonEnabled
-            case .showSuccess:
-//                let homeScreen = screens.homeScreen()
+           case .showSuccess:
+                let homeScreen = screens.homeScreen()
+                print("homeScreen.key", homeScreen.key)
+                navigator.navigate { route in
+                    route
+                        .first(.container(key: homeScreen.key))
+                        .refresh()
+                }
 //                navigator.navigate { route in
 //                    route
 //                        .first(.container(of: homeScreen))

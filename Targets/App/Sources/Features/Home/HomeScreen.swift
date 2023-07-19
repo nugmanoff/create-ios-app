@@ -11,6 +11,7 @@ struct HomeScreen: Screen {
             .resolve()
 
         let view = HomeViewController(
+            screenKey: key,
             onOpenMenu: {
                 navigator.navigate(to: presentMenuRoute)
             }

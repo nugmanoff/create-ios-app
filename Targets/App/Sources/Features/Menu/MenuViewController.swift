@@ -25,6 +25,11 @@ final class MenuViewController: UIViewController {
         configureUI()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        print("menuDidAppear")
+    }
+    
     private func configureUI() {
         addIgnoringSafeArea(rootView)
     }

@@ -18,10 +18,10 @@ public enum TargetScheme: CaseIterable {
     
     private func schemeName(for target: String) -> String {
         switch self {
-        case .production:
-            return "\(target) Production"
         case .staging:
-            return "\(target) Staging"
+            return "\(target)(Staging)"
+        case .production:
+            return "\(target)"
         }
     }
 

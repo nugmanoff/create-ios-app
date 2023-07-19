@@ -8,12 +8,21 @@ public enum TargetConfiguration: CaseIterable {
 }
 
 extension TargetConfiguration {
-    func configuration(displayName: String, targetName: String, bundleId: String) -> Configuration {
+    func configuration() -> Configuration {
         switch self {
         case .debugStaging, .debugProduction:
-            return .debug(name: name, settings: settings(displayName: displayName, targetName: targetName, bundleId: bundleId))
+            return .debug(name: name, settings: settings())
         case .releaseStaging, .releaseProduction:
-            return .release(name: name, settings: settings(displayName: displayName, targetName: targetName, bundleId: bundleId))
+            return .release(name: name, settings: settings())
+        }
+    }
+    
+    public func dependencyConfiguration() -> Configuration {
+        switch self {
+        case .debugStaging, .debugProduction:
+            return .debug(name: name)
+        case .releaseStaging, .releaseProduction:
+            return .release(name: name)
         }
     }
 
@@ -30,36 +39,36 @@ extension TargetConfiguration {
         }
     }
 
-    private func settings(displayName: String, targetName: String, bundleId: String) -> [String: SettingValue] {
+    private func settings() -> [String: SettingValue] {
         [
-            "APP_BUNDLE_NAME": "\(targetName)",
-            "APP_DISPLAY_NAME": appName(targetName: displayName),
-            "APP_BUNDLE_IDENTIFIER": SettingValue(stringLiteral: bundleIdentifier(baseBundleId: bundleId)),
-            "PRODUCT_BUNDLE_IDENTIFIER": SettingValue(stringLiteral: bundleIdentifier(baseBundleId: bundleId)),
-//            "DEVELOPMENT_TEAM": "8526SDA4V4",
-//            "CODE_SIGN_STYLE": "Manual",
-            "PROVISIONING_PROFILE_SPECIFIER": provisioningProfile(bundleId: bundleId),
+            "APP_BUNDLE_NAME": "\(App.mainTargetName)",
+            "APP_DISPLAY_NAME": displayName(),
+            "APP_BUNDLE_IDENTIFIER": "\(bundleIdentifier())",
+            "PRODUCT_BUNDLE_IDENTIFIER": "\(bundleIdentifier())",
+            "DEVELOPMENT_TEAM": "\(App.developmentTeamId)",
+            "CODE_SIGN_STYLE": "Manual",
+            "PROVISIONING_PROFILE_SPECIFIER": provisioningProfile(),
             "CODE_SIGN_IDENTITY": codeSignIdentity(),
         ]
     }
 
-    private func appName(targetName: String) -> SettingValue {
+    private func displayName() -> SettingValue {
         switch self {
         case .debugStaging, .releaseStaging:
-            return "\(targetName) Staging"
+            return "\(App.displayName) Staging"
         case .debugProduction, .releaseProduction:
-            return "\(targetName)"
+            return "\(App.displayName)"
         }
     }
     
-    private func provisioningProfile(bundleId: String) -> SettingValue {
+    private func provisioningProfile() -> SettingValue {
         switch self {
         case .debugStaging, .debugProduction:
-            return "match Development \(bundleIdentifier(baseBundleId: bundleId))"
+            return "match Development \(bundleIdentifier())"
         case .releaseStaging:
-            return "match AdHoc \(bundleIdentifier(baseBundleId: bundleId))"
+            return "match AdHoc \(bundleIdentifier())"
         case .releaseProduction:
-            return "match AppStore \(bundleIdentifier(baseBundleId: bundleId))"
+            return "match AppStore \(bundleIdentifier())"
         }
     }
 
@@ -81,7 +90,12 @@ extension TargetConfiguration {
         }
     }
 
-    private func bundleIdentifier(baseBundleId: String) -> String {
-        "\(baseBundleId)"
+    private func bundleIdentifier() -> String {
+        switch self {
+        case .debugStaging, .releaseStaging:
+            return "\(App.bundleId).staging"
+        case .debugProduction, .releaseProduction:
+            return "\(App.bundleId)"
+        }
     }
 }

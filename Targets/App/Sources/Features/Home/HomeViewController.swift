@@ -4,7 +4,7 @@ import SideMenu
 import Nivelir
 import Factory
 
-final class HomeViewController: UIViewController, ScreenRefreshableContainer {
+final class HomeViewController: UIViewController, ScreenRefreshableContainer, ScreenKeyedContainer {
     
     var onOpenMenu: Callback = {}
     
@@ -13,13 +13,15 @@ final class HomeViewController: UIViewController, ScreenRefreshableContainer {
     private let viewModel = HomeViewModel()
     
     private let store = HomeStore()
+    let screenKey: ScreenKey
     
     @Injected(\.screens) var screens
     @Injected(\.navigator) var navigator
     
     private var bag = Bag()
 
-    init(onOpenMenu: @escaping Callback) {
+    init(screenKey: ScreenKey, onOpenMenu: @escaping Callback) {
+        self.screenKey = screenKey
         self.onOpenMenu = onOpenMenu
         super.init(nibName: nil, bundle: nil)
     }
@@ -37,8 +39,8 @@ final class HomeViewController: UIViewController, ScreenRefreshableContainer {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        print("did appear")
-        store.sendAction(.viewDidAppear)
+        print("homeDidAppear")
+//        store.sendAction(.viewDidAppear)
     }
     
     func refresh(completion: @escaping () -> Void) {
