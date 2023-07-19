@@ -12,7 +12,7 @@ enum HomeAction {
 }
 
 final class HomeStore: Store<HomeEvent, HomeAction> {
-    @Injected(\.getProfileUseCase) private var getProfileUseCase
+    @Injected(\UseCases.getProfileUseCase) private var getProfileUseCase
     
     override func handleActions(action: HomeAction) {
         switch action {

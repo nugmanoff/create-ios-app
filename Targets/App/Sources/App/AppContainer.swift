@@ -7,6 +7,13 @@ typealias AppContainer = Container
 typealias Dependency = Factory
 typealias ParametrizedDependency = ParameterFactory
 
+extension AppContainer: AutoRegistering {
+    public func autoRegister() {
+        /// Makes all of the registrations in scope `.singleton` by default
+        manager.defaultScope = .singleton
+    }
+}
+
 extension AppContainer {
     var navigator: Dependency<ScreenNavigator> {
         self {
@@ -37,25 +44,5 @@ extension AppContainer {
             AuthCoordinator()
         }
         .shared
-    }
-    
-    var getProfileUseCase: Dependency<GetProfileUseCaseProtocol> {
-        self {
-            GetProfileUseCase()
-//            GetProfileUseCaseMock()
-        }
-    }
-    
-    var getUserFlowUseCase: Dependency<GetUserFlowUseCaseProtocol> {
-        self {
-            GetUserFlowUseCase()
-//            GetUserFlowUseCaseMock()
-        }
-    }
-}
-
-extension AppContainer: AutoRegistering {
-    public func autoRegister() {
-        manager.defaultScope = .singleton
     }
 }

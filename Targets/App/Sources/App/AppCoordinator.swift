@@ -2,7 +2,7 @@ import Infra
 import Factory
 
 struct AppCoordinator {
-    @Injected(\.getUserFlowUseCase) var getUserFlowUseCase
+    @Injected(\UseCases.getUserFlowUseCase) var getUserFlowUseCase
     @Injected(\.navigator) var navigator
     @Injected(\.routes) var routes
     @Injected(\.authCoordinator) var authCoordinator
