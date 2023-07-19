@@ -32,6 +32,13 @@ extension AppContainer {
         }
     }
     
+    var authCoordinator: Dependency<AuthCoordinator> {
+        self {
+            AuthCoordinator()
+        }
+        .shared
+    }
+    
     var getProfileUseCase: Dependency<GetProfileUseCaseProtocol> {
         self {
             GetProfileUseCase()
@@ -41,8 +48,8 @@ extension AppContainer {
     
     var getUserFlowUseCase: Dependency<GetUserFlowUseCaseProtocol> {
         self {
-//            GetUserFlowUseCase()
-            GetUserFlowUseCaseMock()
+            GetUserFlowUseCase()
+//            GetUserFlowUseCaseMock()
         }
     }
 }

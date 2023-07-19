@@ -23,7 +23,7 @@ final class AuthEnterPasswordViewController: UIViewController, Screen {
     @Injected(\.routes) var routes
     @Injected(\.screens) var screens
     @Injected(\.navigator) var navigator
-    
+    @Injected(\.authCoordinator) var coordinator
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -61,10 +61,6 @@ final class AuthEnterPasswordViewController: UIViewController, Screen {
     }
     
     private func onNextDidTap() {
-        navigator.navigate(from: stack) { route in
-            route
-                .clear(animation: .crossDissolve)
-                .push(screens.homeScreen(), animation: .crossDissolve)
-        }
+        coordinator.onEnterPasswordNextDidTap(container: self)
     }
 }

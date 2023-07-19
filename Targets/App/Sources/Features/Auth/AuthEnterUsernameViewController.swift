@@ -21,6 +21,7 @@ final class AuthEnterUsernameViewController: UIViewController {
     
     @Injected(\.screens) var screens
     @Injected(\.navigator) var navigator
+    @Injected(\.authCoordinator) var coordinator
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -58,9 +59,6 @@ final class AuthEnterUsernameViewController: UIViewController {
     }
     
     private func onNextDidTap() {
-        let screen = AuthEnterPasswordViewController()
-        navigator.navigate(from: stack) { route in
-            route.push(screen)
-        }
+        coordinator.onEnterUsernameNextDidTap(container: self)
     }
 }

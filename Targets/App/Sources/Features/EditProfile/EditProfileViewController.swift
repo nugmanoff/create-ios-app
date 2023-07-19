@@ -82,7 +82,7 @@ final class EditProfileViewController: UIViewController, UITextFieldDelegate {
                 buttonViewModel.isEnabled = isSaveButtonEnabled
                 break
             case .showSuccess:
-                let homeScreen = screens.homeScreen()
+//                let homeScreen = screens.homeScreen()
                 navigator.navigate { route in
                     route
                         .first(.stack)

@@ -1,16 +1,17 @@
 import Infra
 import Factory
 
-class AppCoordinator {
+struct AppCoordinator {
     @Injected(\.getUserFlowUseCase) var getUserFlowUseCase
     @Injected(\.navigator) var navigator
     @Injected(\.routes) var routes
+    @Injected(\.authCoordinator) var authCoordinator
     
     func start() {
         let flow = getUserFlowUseCase.execute()
         switch flow {
         case .auth:
-            navigator.navigate(to: routes.showAuthRoute())
+            authCoordinator.start()
         case .main:
             navigator.navigate(to: routes.showHomeRoute())
         }
