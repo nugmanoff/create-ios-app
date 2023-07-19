@@ -1,5 +1,5 @@
-import Foundation
 import Convenience
+import Factory
 
 enum EditProfileEvent {
     case isLoading(Bool)
@@ -14,8 +14,8 @@ enum EditProfileAction {
 
 
 final class EditProfileStore: Store<EditProfileEvent, EditProfileAction> {
+    @Injected(\UseCases.updateProfileNameUseCase) var updateProfileNameUseCase
     private var profileName: String = ""
-    private var updateProfileNameUseCase = UpdateProfileNameUseCase()
     
     override func handleActions(action: EditProfileAction) {
         switch action {
@@ -34,5 +34,4 @@ final class EditProfileStore: Store<EditProfileEvent, EditProfileAction> {
             }
         }
     }
-    
 }

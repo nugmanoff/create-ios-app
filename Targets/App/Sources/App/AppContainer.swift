@@ -39,6 +39,13 @@ extension AppContainer {
         }
     }
     
+    var appCoordinator: Dependency<AppCoordinator> {
+        self {
+            AppCoordinator()
+        }
+        .shared
+    }
+    
     var authCoordinator: Dependency<AuthCoordinator> {
         self {
             AuthCoordinator()

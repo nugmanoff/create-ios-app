@@ -26,4 +26,10 @@ extension UseCases {
 //            GetUserFlowUseCaseMock()
         }
     }
+    
+    var updateProfileNameUseCase: Dependency<UpdateProfileNameUseCaseProtocol> {
+        self {
+            UpdateProfileNameUseCase()
+        }
+    }
 }

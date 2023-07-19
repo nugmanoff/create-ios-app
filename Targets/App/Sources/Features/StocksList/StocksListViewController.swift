@@ -70,9 +70,6 @@ extension StocksListViewController: UITableViewDataSource {
         let stock = viewModel.stocks[indexPath.row]
         let cell: StocksListItemCell = tableView.dequeueReusableBridgingCell(for: indexPath)
         let view = StocksListItemView(stock: stock)
-//        let view = VideoView(viewModel: viewModel) { [weak self, weak viewModel] in
-//            self.store.actions.send(.didTap(viewModel))
-//        }
         cell.set(rootView: view, parentViewController: self)
         return cell
     }

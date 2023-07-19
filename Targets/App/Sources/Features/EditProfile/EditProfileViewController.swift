@@ -19,8 +19,6 @@ final class EditProfileViewController: UIViewController, UITextFieldDelegate {
         onDidTap: onSaveDidTap
     )
     
-    private var updateProfileUseCase = UpdateProfileNameUseCase()
-    
     private var bag = Bag()
     
     @Injected(\.navigator) var navigator
@@ -123,13 +121,3 @@ final class EditProfileViewController: UIViewController, UITextFieldDelegate {
     }
 }
 
-extension UITextField {
-    var textPublisher: AnyPublisher<String, Never> {
-        NotificationCenter.default.publisher(
-            for: UITextField.textDidChangeNotification,
-            object: self
-        )
-        .compactMap { ($0.object as? UITextField)?.text }
-        .eraseToAnyPublisher()
-    }
-}

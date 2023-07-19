@@ -26,19 +26,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             ScreenNavigator(window: window)
         }
         
-        let appCoordinator = AppCoordinator()
-        appCoordinator.start()
-//
-//        container
-//            .navigator()
-//            .navigate(
-//                to: container
-//                    .routes()
-//                    .showAuthRoute()
-//            )
+        container.appCoordinator().start()
     }
 }
-
 
 #if DEBUG
 extension UIWindow {
