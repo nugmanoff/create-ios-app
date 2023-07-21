@@ -1,3 +1,5 @@
+# Файловая структура
+
 - `Targets`
     - `App`
         - `Resources`
