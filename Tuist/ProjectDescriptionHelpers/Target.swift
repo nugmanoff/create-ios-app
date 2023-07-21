@@ -34,11 +34,11 @@ extension Project {
                     .target(name: "Resources"),
                     .target(name: "Convenience")
                 ]),
-                module(name: "Infra", noResources: false, dependencies: [
+                module(name: "Infra", withResources: true, dependencies: [
                     .external(name: "Alamofire"),
                     .external(name: "Pulse")
                 ]),
-                module(name: "Resources", noResources: false),
+                module(name: "Resources", withResources: true),
                 module(name: "Convenience")
             ],
             schemes: TargetScheme.allCases.map { $0.getScheme(for: App.targetName) },
@@ -71,7 +71,7 @@ extension Project {
         )
     }
     
-    public static func module(name: String, noResources: Bool = true, dependencies: [TargetDependency] = []) -> Target {
+    public static func module(name: String, withResources: Bool = false, dependencies: [TargetDependency] = []) -> Target {
         Target(
             name: name,
             platform: .iOS,
@@ -80,7 +80,7 @@ extension Project {
             deploymentTarget: .iOS(targetVersion: App.deploymentTarget, devices: .iphone),
             infoPlist: .default,
             sources: ["Targets/\(name)/Sources/**"],
-            resources: noResources ? [] : ["Targets/\(name)/Resources/**"],
+            resources: withResources ? ["Targets/\(name)/Resources/**"] : [],
             dependencies: dependencies
         )
     }
