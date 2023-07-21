@@ -2,21 +2,33 @@
 
 Шаблон для создания iOS проектов. 
 
-## Как запускать проект
+## Начало работы
 
-Установить tuist
+1. Установить tuist
 ```
 curl -Ls https://install.tuist.io | bash
 ```
 
-Сгенерировать проект, установить зависимости и открыть его
-```
-tuist fetch && tuist generate 
-```
-
-Для редактирования настроек проекта, процесса сборки, добавления зависимостей:
+2. Открываем настройки проекта
 ```
 tuist edit
+```
+
+3. Открываем `Target.swift` и в структуре `App` меняем все нужные настройки
+```
+enum App {
+    static let bundleId = "com.nugmanoff.cia"
+    static let displayName = "Create iOS App"
+    static let organizationName = "nugmanoff"
+    static let deploymentTarget = "13.0"
+    static let developmentTeamId = "8526SDA4V4"
+    static let targetName = "App"
+}
+```
+
+4. Генерируем проект, устанавливаем зависимости и открываем его
+```
+tuist fetch && tuist generate 
 ```
 
 Для удобства можно создать alias-ы:
@@ -32,8 +44,7 @@ alias te="tuist edit"
 ## Начало работы
 
 1. Выполняем команду `tuist edit`
-2. Открываем `Target.swift`
-3. И в структуре `App` меняем все нужные настройки
+2. 
 4. Генерируем проект заново `tuist generate` и приступаем за работу.
 
 ## Как добавлять стороннюю зависимость
