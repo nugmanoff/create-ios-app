@@ -1,5 +1,4 @@
 import Combine
-import SwiftUI
 
 open class Store<Event, Action> {
     private(set) var events = PassthroughSubject<Event, Never>()
@@ -21,12 +20,11 @@ open class Store<Event, Action> {
     
     func setupActionHandlers() {
         actions.sink { [weak self] action in
-            guard let self = self else { return }
-            self.handleActions(action: action)
+            self?.handleAction(action)
         }.store(in: &bag)
     }
     
-    open func handleActions(action: Action) {
+    open func handleAction(_ action: Action) {
         
     }
 }

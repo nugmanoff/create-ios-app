@@ -17,7 +17,7 @@ final class EditProfileStore: Store<EditProfileEvent, EditProfileAction> {
     @Injected(\UseCases.updateProfileNameUseCase) var updateProfileNameUseCase
     private var profileName: String = ""
     
-    override func handleActions(action: EditProfileAction) {
+    override func handleAction(_ action: EditProfileAction) {
         switch action {
         case .textDidChange(let text):
             profileName = text

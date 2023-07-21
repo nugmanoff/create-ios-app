@@ -14,7 +14,7 @@ enum HomeAction {
 final class HomeStore: Store<HomeEvent, HomeAction> {
     @Injected(\UseCases.getProfileUseCase) private var getProfileUseCase
     
-    override func handleActions(action: HomeAction) {
+    override func handleAction(_ action: HomeAction) {
         switch action {
         case .viewDidAppear:
             print("viewDidAppear Action Received")
